@@ -14,6 +14,7 @@ pipeline {
     }
     stages {
         stage('Maven Build') {
+            
             steps {
                 script {
                     // Execute Maven build
@@ -24,6 +25,7 @@ pipeline {
             }
         }
         stage('Kaniko Build & Push') {
+            container ( 'kaniko' ) {
             steps {
                 script {
                     // Run Kaniko in a Kubernetes pod
@@ -40,6 +42,7 @@ pipeline {
                             """
                  }
             }
+          }      
         }
         stage('Deploy with Helm') {
             steps {
