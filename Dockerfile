@@ -1,6 +1,8 @@
 # Use Eclipse Temurin as the base image for JDK 21
 FROM eclipse-temurin:21-jdk
 
+ARG  APP_PATH=/home/jenkins/agent/workspace
+
 # Set the working directory
 WORKDIR /app
 
