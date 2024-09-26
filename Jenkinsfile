@@ -26,6 +26,7 @@ pipeline {
             steps {
                 script {
                     // Run Kaniko in a Kubernetes pod
+                            sh 'cp ${APP_PATH}/Dockerfile ${CONTEXT_PATH}/'
                             sh """
                             executor --context ${CONTEXT_PATH} \
                             --dockerfile ${DOCKERFILE_PATH} \
