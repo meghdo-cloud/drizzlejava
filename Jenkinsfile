@@ -30,7 +30,7 @@ pipeline {
                             sh 'whoami'
                             sh 'cp ${APP_PATH}/Dockerfile ${CONTEXT_PATH}/'
                             sh """
-                            executor --context ${CONTEXT_PATH} \
+                            sudo executor --context ${CONTEXT_PATH} \
                             --dockerfile ${DOCKERFILE_PATH} \
                             --destination ${GCR_REGISTRY}:${BUILD_NUMBER} \
                             --cache=true \
