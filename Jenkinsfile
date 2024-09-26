@@ -25,8 +25,10 @@ pipeline {
             }
         }
         stage('Kaniko Build & Push') {
-            container ( 'kaniko' ) {
+            steps  {
                 script {
+
+                   container('kaniko') {
                     // Run Kaniko in a Kubernetes pod
                             sh 'whoami'
                             sh 'cp ${APP_PATH}/Dockerfile ${CONTEXT_PATH}/'
@@ -40,7 +42,7 @@ pipeline {
                             --build-arg APP_PATH=${env.APP_PATH}
                             """
                  }
-
+             }
           }      
         }
         stage('Deploy with Helm') {
