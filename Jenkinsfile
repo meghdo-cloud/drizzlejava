@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     // Execute Maven build
-                    sh 'pwd'
+                    sh 'ls -lrt'
                     sh 'mvn clean package -DskipTests'
                 }
             }
