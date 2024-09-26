@@ -10,6 +10,7 @@ pipeline {
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         DOCKERFILE_PATH = '/workspace/Dockerfile'     // Set the path to the Dockerfile
         CONTEXT_PATH = '/workspace'                 // Set the build context for Kaniko
+        APP_PATH = '/home/jenkins/agents/workspace/drizzle_main'
     }
     stages {
         stage('Maven Build') {
@@ -31,7 +32,8 @@ pipeline {
                             --destination ${GCR_REGISTRY}:${BUILD_NUMBER} \
                             --cache=true \
                             --build-arg GIT_COMMIT=${env.GIT_COMMIT} \
-                            --build-arg GIT_BRANCH=${env.GIT_BRANCH}
+                            --build-arg GIT_BRANCH=${env.GIT_BRANCH} \
+                            --build-arg APP_PATH=${env.
                             """
                  }
             }
