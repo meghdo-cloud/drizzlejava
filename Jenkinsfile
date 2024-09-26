@@ -17,6 +17,7 @@ pipeline {
             steps {
                 script {
                     // Execute Maven build
+                    sh 'pwd'
                     sh 'ls -lrt'
                     sh 'mvn clean package -DskipTests'
                 }
@@ -26,6 +27,7 @@ pipeline {
             steps {
                 script {
                     // Run Kaniko in a Kubernetes pod
+                            sh 'whoami'
                             sh 'cp ${APP_PATH}/Dockerfile ${CONTEXT_PATH}/'
                             sh """
                             executor --context ${CONTEXT_PATH} \
