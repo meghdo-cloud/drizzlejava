@@ -10,7 +10,7 @@ pipeline {
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         DOCKERFILE_PATH = '/workspace/Dockerfile'     // Set the path to the Dockerfile
         CONTEXT_PATH = '/workspace'                 // Set the build context for Kaniko
-        APP_PATH = '/home/jenkins/agents/workspace/drizzle_main'
+        APP_PATH = '/home/jenkins/agent/workspace/drizzle_main'
     }
     stages {
         stage('Maven Build') {
