@@ -7,7 +7,7 @@ ARG  APP_PATH=/home/jenkins/agent/workspace
 WORKDIR /app
 
 # Copy the Maven build artifact to the container
-COPY target/drizzle-1.0.0.jar /app/drizzle.jar
+COPY ${APP_PATH}/target/drizzle-1.0.0.jar /app/drizzle.jar
 
 # Expose port 8080
 EXPOSE 8080
