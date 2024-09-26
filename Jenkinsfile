@@ -33,7 +33,7 @@ pipeline {
                             --cache=true \
                             --build-arg GIT_COMMIT=${env.GIT_COMMIT} \
                             --build-arg GIT_BRANCH=${env.GIT_BRANCH} \
-                            --build-arg APP_PATH=${env.
+                            --build-arg APP_PATH=${env.APP_PATH}
                             """
                  }
             }
