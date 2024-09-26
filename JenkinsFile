@@ -10,6 +10,7 @@ pipeline {
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         DOCKERFILE_PATH = 'Dockerfile'     // Set the path to the Dockerfile
         CONTEXT_PATH = '.'                 // Set the build context for Kaniko
+        GIT_REPO = 'git@github.com:meghdo-cloud/drizzle.git'
     }
     stages {
         stage('Checkout Code') {
