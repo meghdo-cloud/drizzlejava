@@ -10,28 +10,8 @@ pipeline {
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         DOCKERFILE_PATH = 'Dockerfile'     // Set the path to the Dockerfile
         CONTEXT_PATH = '.'                 // Set the build context for Kaniko
-        GIT_REPO = 'git@github.com:meghdo-cloud/drizzle.git'
     }
     stages {
-        stage('Checkout Code') {
-            steps {
-                script {
-                    // Checkout the code from GitHub using SSH
-                    checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/main']],  // Adjust for your branch
-                        userRemoteConfigs: [[url: "${GIT_REPO}", credentialsId: '']],
-
-                        // Specify the SSH configuration
-                        doGenerateSubmoduleConfigurations: false,
-                        submoduleCfg: [],
-                        extensions: [
-                            [$class: 'CloneOption', noTags: false, shallow: true, depth: 1]
-                        ]
-                    ])
-                }
-            }
-        }
         stage('Maven Build') {
             steps {
                 script {
