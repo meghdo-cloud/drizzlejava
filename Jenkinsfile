@@ -9,7 +9,7 @@ pipeline {
         HELM_RELEASE = 'drizzle' // Set Helm release name
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         DOCKERFILE_PATH = 'Dockerfile'     // Set the path to the Dockerfile
-        CONTEXT_PATH = '.'                 // Set the build context for Kaniko
+        CONTEXT_PATH = '/home/jenkins/agent/workspace/drizzle_main'                 // Set the build context for Kaniko
     }
     stages {
         stage('Maven Build') {
