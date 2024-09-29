@@ -17,11 +17,9 @@ pipeline {
         stage('Get Tag') {
           steps {
               scripts {
-                branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-                // Get first 5 characters of the commit ID
-                commitId = sh(script: 'git rev-parse --short=5 HEAD', returnStdout: true).trim()
-                // Combine branch name and commit ID for the tag
-                TAG = "${branchName}-${commitId}"
+                    def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                    def commit = sh(returnStdout: true, script: 'git rev-parse --short=5 HEAD').trim()
+                    env.TAG = "${branch}-${commit}"
               }
            }
         }    
