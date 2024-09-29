@@ -8,8 +8,6 @@ pipeline {
         K8S_NAMESPACE = 'default'   // Set Kubernetes namespace
         HELM_RELEASE = 'drizzle' // Set Helm release name
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
-        DOCKERFILE_PATH = '/workspace/Dockerfile'     // Set the path to the Dockerfile
-        CONTEXT_PATH = '/workspace'                 // Set the build context for Kaniko
         APP_PATH = '/home/jenkins/agent/workspace/drizzle_main'
     }
     stages {
@@ -45,6 +43,8 @@ pipeline {
                 script {
                     // Update the Helm chart with the new image tag and deploy
                     sh """
+                    gcloud config set project $PROJECT_ID
+                    gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
                     helm upgrade ${HELM_RELEASE} ${CHART_PATH} \
                     --namespace ${K8S_NAMESPACE} \
                     --set image.repository=${GCR_REGISTRY} \
