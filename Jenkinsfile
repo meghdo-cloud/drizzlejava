@@ -32,8 +32,8 @@ pipeline {
                     // Run Kaniko in a Kubernetes pod
 
                             sh """
-                            /kaniko/executor --context 'pwd' \
-                            --dockerfile 'pwd'/Dockerfile \
+                            /kaniko/executor --context ${APP_PATH} \
+                            --dockerfile ${APP_PATH}/Dockerfile \
                             --destination ${GCR_REGISTRY}:${BUILD_NUMBER}
                              """
                  }
