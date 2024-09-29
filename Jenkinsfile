@@ -83,7 +83,7 @@ pipeline {
     post {
         always {
             script {
-                cleanws()
+                cleanWs()
             }
         }  
     }            
