@@ -2,6 +2,8 @@ pipeline {
     agent { label 'javaagent' }
     environment {
         PROJECT_ID = 'meghdo-4567' // Set your GCP project ID
+        CLUSTER_NAME = 'meghdo-cluster'
+        CLUSTER_REGION = 'us-central1'
         IMAGE_NAME = 'drizzle'     // Set the image name for GCR
         REPO_NAME = 'docker-repo'
         GCR_REGISTRY = "us-central1-docker.pkg.dev/${PROJECT_ID}/${REPO_NAME}/${IMAGE_NAME}"
@@ -44,7 +46,7 @@ pipeline {
                     // Update the Helm chart with the new image tag and deploy
                     sh """
                     gcloud config set project $PROJECT_ID
-                    gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_ZONE
+                    gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_REGION
                     helm upgrade ${HELM_RELEASE} ${CHART_PATH} \
                     --namespace ${K8S_NAMESPACE} \
                     --set image.repository=${GCR_REGISTRY} \
