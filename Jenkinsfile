@@ -33,8 +33,8 @@ pipeline {
 
                             sh """
                             /kaniko/executor --context 'pwd' \
-                            --dockerfile 'pwd'/Dockerfile
-                            --destination ${GCR_REGISTRY}:${BUILD_NUMBER} \
+                            --dockerfile 'pwd'/Dockerfile \
+                            --destination ${GCR_REGISTRY}:${BUILD_NUMBER}
                              """
                  }
              }
