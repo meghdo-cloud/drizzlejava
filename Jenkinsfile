@@ -28,19 +28,14 @@ pipeline {
             steps  {
                 script {
 
-                   container('kaniko') {
+                   container(name: 'kaniko', shell: '/busybox/sh') {
                     // Run Kaniko in a Kubernetes pod
-                            sh 'whoami'
-                            sh 'cp ${APP_PATH}/Dockerfile ${CONTEXT_PATH}/'
+
                             sh """
-                            sudo executor --context ${CONTEXT_PATH} \
-                            --dockerfile ${DOCKERFILE_PATH} \
+                            /kaniko/executor --context 'pwd' \
+                            --dockerfile 'pwd'/ Dockerfile
                             --destination ${GCR_REGISTRY}:${BUILD_NUMBER} \
-                            --cache=true \
-                            --build-arg GIT_COMMIT=${env.GIT_COMMIT} \
-                            --build-arg GIT_BRANCH=${env.GIT_BRANCH} \
-                            --build-arg APP_PATH=${env.APP_PATH}
-                            """
+                             """
                  }
              }
           }      
