@@ -11,19 +11,10 @@ pipeline {
         HELM_RELEASE = 'drizzle' // Set Helm release name
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         APP_PATH = '/home/jenkins/agent/workspace/drizzle_main'
-        TAG=""
+        TAG="${GIT_BRANCH}-${GIT_COMMIT[0..5]}"
     }
     stages {
-        stage('Get Tag') {
-          steps {
-              scripts {
-                    def branch = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    def commit = sh(returnStdout: true, script: 'git rev-parse --short=5 HEAD').trim()
-                    env.TAG = "${branch}-${commit}"
-              }
-           }
-        }    
-        stage('Maven Build') {            
+         stage('Maven Build') {            
             steps {
                 script {
                     // Execute Maven build
