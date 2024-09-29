@@ -14,6 +14,14 @@ pipeline {
         TAG=""
     }
     stages {
+        stage('Get Tag') {
+             def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+             // Get first 5 characters of the commit ID
+             def commitId = sh(script: 'git rev-parse --short=5 HEAD', returnStdout: true).trim()
+             // Combine branch name and commit ID for the tag
+             TAG = "${branchName}-${commitId}"
+
+        }    
         stage('Maven Build') {
             
             steps {
@@ -30,13 +38,6 @@ pipeline {
                 script {
 
                    container(name: 'kaniko', shell: '/busybox/sh') {
-                    def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
-
-                    // Get first 5 characters of the commit ID
-                    def commitId = sh(script: 'git rev-parse --short=5 HEAD', returnStdout: true).trim()
-
-                    // Combine branch name and commit ID for the tag
-                    TAG = "${branchName}-${commitId}"
                        
                     // Run Kaniko in a Kubernetes pod
 
