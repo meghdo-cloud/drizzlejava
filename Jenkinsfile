@@ -11,6 +11,9 @@ pipeline {
         HELM_RELEASE = 'drizzle' // Set Helm release name
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         APP_PATH = '/home/jenkins/agent/workspace/drizzle_main'
+        BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+        COMMIT_ID=$(git rev-parse --short=5 HEAD)
+        TAG="${BRANCH_NAME}-${COMMIT_ID}"
     }
     stages {
         stage('Maven Build') {
@@ -34,7 +37,7 @@ pipeline {
                             sh """
                             /kaniko/executor --context ${APP_PATH} \
                             --dockerfile ${APP_PATH}/Dockerfile \
-                            --destination ${GCR_REGISTRY}:${BUILD_NUMBER}
+                            --destination ${GCR_REGISTRY}:${TAG}
                              """
                  }
              }
@@ -50,7 +53,7 @@ pipeline {
                     helm upgrade --install ${HELM_RELEASE} ${CHART_PATH} \
                     --namespace ${K8S_NAMESPACE} \
                     --set image.repository=${GCR_REGISTRY} \
-                    --set image.tag=${BUILD_NUMBER}
+                    --set image.tag=${TAG}
                     """
                 }
             }
