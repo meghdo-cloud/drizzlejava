@@ -11,9 +11,7 @@ pipeline {
         HELM_RELEASE = 'drizzle' // Set Helm release name
         CHART_PATH = './helm-charts'   // Set the path to your Helm chart
         APP_PATH = '/home/jenkins/agent/workspace/drizzle_main'
-        BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-        COMMIT_ID=$(git rev-parse --short=5 HEAD)
-        TAG="${BRANCH_NAME}-${COMMIT_ID}"
+        TAG=""
     }
     stages {
         stage('Maven Build') {
@@ -32,6 +30,14 @@ pipeline {
                 script {
 
                    container(name: 'kaniko', shell: '/busybox/sh') {
+                    def branchName = sh(script: 'git rev-parse --abbrev-ref HEAD', returnStdout: true).trim()
+
+                    // Get first 5 characters of the commit ID
+                    def commitId = sh(script: 'git rev-parse --short=5 HEAD', returnStdout: true).trim()
+
+                    // Combine branch name and commit ID for the tag
+                    TAG = "${branchName}-${commitId}"
+                       
                     // Run Kaniko in a Kubernetes pod
 
                             sh """
@@ -47,6 +53,7 @@ pipeline {
             steps {
                 script {
                     // Update the Helm chart with the new image tag and deploy
+                                       
                     sh """
                     gcloud config set project $PROJECT_ID
                     gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_REGION
