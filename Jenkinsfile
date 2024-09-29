@@ -14,7 +14,23 @@ pipeline {
         TAG="${GIT_BRANCH}-${GIT_COMMIT[0..5]}"
     }
     stages {
-         stage('Maven Build') {            
+        stage('SCM Skip') {
+            steps {
+                script {
+                    skipStages = false
+                    scmSkip = sh(script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                    if (scmSkip.contains("[ci skip]")) {
+                        skipStages = true
+                        currentBuild.description = "SCM Skip - Build skipped as no new commits in branch"
+                    }
+                    echo Boolean.toString(skipStages)
+                }
+            }    
+        }   
+        stage('Maven Build') {    
+            when {
+                experssion { return !skipStages }
+            }    
             steps {
                 script {
                     // Execute Maven build
@@ -25,6 +41,9 @@ pipeline {
             }
         }
         stage('Kaniko Build & Push') {
+            when {
+                experssion { return !skipStages }
+            }              
             steps  {
                 script {
 
@@ -42,6 +61,9 @@ pipeline {
           }      
         }
         stage('Deploy with Helm') {
+            when {
+                experssion { return !skipStages }
+            }              
             steps {
                 script {
                     // Update the Helm chart with the new image tag and deploy
