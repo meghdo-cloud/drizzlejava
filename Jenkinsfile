@@ -29,7 +29,7 @@ pipeline {
         }   
         stage('Maven Build') {    
             when {
-                experssion { return !skipStages }
+                expression { return !skipStages }
             }    
             steps {
                 script {
@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Kaniko Build & Push') {
             when {
-                experssion { return !skipStages }
+                expression { return !skipStages }
             }              
             steps  {
                 script {
@@ -62,7 +62,7 @@ pipeline {
         }
         stage('Deploy with Helm') {
             when {
-                experssion { return !skipStages }
+                expression { return !skipStages }
             }              
             steps {
                 script {
