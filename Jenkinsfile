@@ -47,7 +47,7 @@ pipeline {
                     sh """
                     gcloud config set project $PROJECT_ID
                     gcloud container clusters get-credentials $CLUSTER_NAME --zone $CLUSTER_REGION
-                    helm upgrade ${HELM_RELEASE} ${CHART_PATH} \
+                    helm upgrade --install ${HELM_RELEASE} ${CHART_PATH} \
                     --namespace ${K8S_NAMESPACE} \
                     --set image.repository=${GCR_REGISTRY} \
                     --set image.tag=${BUILD_NUMBER}
