@@ -4,8 +4,8 @@ library identifier: 'javaPipeline@main', retriever: modernSCM([$class: 'GitSCMSo
 javaPipeline (
     projectId: "meghdo-4567",
     clusterName: "meghdo-cluster",
-    clusterRegion: "us-central1",
+    clusterRegion: "europe-west1",
     appName: "drizzle",
-    dockerRegistry: "us-central1-docker.pkg.dev",
+    dockerRegistry: "europe-west1-docker.pkg.dev",
     namespace: "default"
 )
