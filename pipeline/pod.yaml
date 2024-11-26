@@ -73,22 +73,8 @@ spec:
         limits:
           memory: "512Mi"
           cpu: "512m"
-    - name: gcloud
-      image: gcr.io/google.com/cloudsdktool/google-cloud-cli:489.0.0-stable
-      command: ["sleep"]
-      args: ["9999999"]
-      volumeMounts:
-        - name: workspace-volume
-          mountPath: /home/jenkins/agent
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "128m"
-        limits:
-          memory: "512Mi"
-          cpu: "512m"
-    - name: helm
-      image: alpine/helm:latest
+    - name: infra-tools
+      image: meghdo/infra-tools:v1.0
       command: ["sleep"]
       args: ["9999999"]
       volumeMounts:
