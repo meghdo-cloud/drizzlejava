@@ -7,5 +7,6 @@ javaPipeline (
     clusterRegion: "europe-west1",
     appName: "drizzle",
     dockerRegistry: "europe-west1-docker.pkg.dev",
-    namespace: "default"
+    namespace: "default",
+    scanOWASP: "true"
 )
