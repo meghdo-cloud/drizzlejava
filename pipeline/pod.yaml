@@ -16,6 +16,8 @@ spec:
         claimName: "jenkins-agents"
     - name: workspace-volume
       emptyDir: {}
+    - name: trivy-cache
+      emptyDir: {}
   containers:
     - name: jnlp
       image: jenkins/inbound-agent:latest
@@ -31,13 +33,6 @@ spec:
           value: "http://jenkins.jenkins.svc.cluster.local:8080"
         - name: JENKINS_TUNNEL
           value: "jenkins-agent.jenkins:50000"
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "128m"
-        limits:
-          memory: "512Mi"
-          cpu: "512m"
     - name: kaniko
       image: gcr.io/kaniko-project/executor:debug
       imagePullPolicy: Always
@@ -51,13 +46,6 @@ spec:
           mountPath: /home/jenkins/agent
         - name: docker-sock
           mountPath: "/var/run/docker.sock"
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "128m"
-        limits:
-          memory: "512Mi"
-          cpu: "512m"    
     - name: maven
       image: maven:3.8.5-openjdk-17
       command:
@@ -66,13 +54,6 @@ spec:
       volumeMounts:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "128m"
-        limits:
-          memory: "512Mi"
-          cpu: "512m"
     - name: infra-tools
       image: meghdo/infra-tools:v1.0
       command: ["sleep"]
@@ -80,10 +61,12 @@ spec:
       volumeMounts:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
-      resources:
-        requests:
-          memory: "128Mi"
-          cpu: "128m"
-        limits:
-          memory: "512Mi"
-          cpu: "512m"
+    - name: trivy
+      image: aquasec/trivy:latest
+      command: ["cat"]
+      tty: true
+      volumeMounts:
+        - name: workspace-volume
+          mountPath: /home/jenkins/agent
+        - name: trivy-cache
+          mountPath: /tmp
