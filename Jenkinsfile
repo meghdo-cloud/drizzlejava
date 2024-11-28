@@ -8,5 +8,5 @@ javaPipeline (
     appName: "drizzle",
     dockerRegistry: "europe-west1-docker.pkg.dev",
     namespace: "default",
-    scanOWASP: "true"  // OWASP Scanning takes about 7-10 min of scanning time, turn on when scanning is needed
+    scanOWASP: "false"  // OWASP Scanning takes about 7-10 min of scanning time, turn on when scanning is needed
 )
