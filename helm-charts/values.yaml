@@ -80,7 +80,7 @@ readinessProbe:
     path: /drizzle/actuator/health
     port: 8080
   initialDelaySeconds: 30
-  kubectl periodSeconds: 10
+  periodSeconds: 10
 
 #This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
