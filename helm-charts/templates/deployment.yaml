@@ -49,7 +49,30 @@ spec:
           {{- with .Values.volumeMounts }}
           volumeMounts:
             {{- toYaml . | nindent 12 }}
-          {{- end }}
+          {{- end }}          
+        {{- if .Values.sqlproxy.enabled }}
+          env:
+            - name: DB_URL
+              value: "jdbc:postgresql://127.0.0.1:{{ .Values.sqlproxy.db_port }}/{{ .Values.sqlproxy.db_name }}?sslmode=disable"
+            - name: DB_USER
+              value: "{{ .Values.sqlproxy.db_user }}"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: db_password
+        - name: cloud-sql-proxy
+          image: "{{ .Values.sqlproxy.repository }}:{{ .Values.sqlproxy.tag }}"
+          args:
+            - "--structured-logs"
+            - "--address=0.0.0.0"
+            - "--port={{ .Values.sqlproxy.db_port }}"
+            - "{{ .Values.project_id }}:{{ .Values.region }}:{{ .Values.sqlproxy.db_instance }}"
+          resources:
+            {{- toYaml .Values.sqlproxy.resources | nindent 12 }}
+          securityContext:
+            runAsNonRoot: true
+        {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
