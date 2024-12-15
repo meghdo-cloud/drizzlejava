@@ -1,8 +1,6 @@
 package cloud.meghdo.drizzle.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
@@ -17,7 +15,7 @@ public class tablea {
     public tablea() {
     }
 
-    public tablea(Long id,String name) {
+    public tablea(Long id, String name) {
         this.id = id;
         this.name = name;
     }

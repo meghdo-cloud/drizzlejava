@@ -18,15 +18,18 @@ public class tableacontroller {
         this.tableaservice = tableaservice;
     }
 
-    // Endpoint to create or update an entry
     @PostMapping
-    public ResponseEntity<String> createOrUpdateEntry(@RequestParam Long id, @RequestParam String name) {
+    public ResponseEntity<String> createEntry(@RequestBody tablea tablea) {
         try {
-            tablea updatedTableA = tableaservice.saveOrUpdateTableA(id, name);
-            return new ResponseEntity<>("Entry saved/updated successfully with ID: " + updatedTableA.getId(), HttpStatus.CREATED);
+            // Check if id and name are provided
+            if (tablea.getId() == null || tablea.getName() == null || tablea.getName().isEmpty()) {
+                return new ResponseEntity<>("Both 'id' and 'name' are required!", HttpStatus.BAD_REQUEST);
+            }
+            // Save or update the entity to the database
+            tableaservice.saveOrUpdateTableA(tablea);
+            return new ResponseEntity<>("Entry created/updated successfully!", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to create or update entry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to create/update entry: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
-

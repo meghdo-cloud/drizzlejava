@@ -16,12 +16,11 @@ public class tableaservice {
     }
 
     // Method to save or update the tablea entity
-    public tablea saveOrUpdateTableA(Long id, String name) {
+    public tablea saveOrUpdateTableA(tablea tableA) {
         // Try to find the entity by id
-        tablea tableA = tablearepository.findById(id).orElse(new tablea(id, name)); // Create new if not found
-        tableA.setId(id);  // Ensure the id is set
-        tableA.setName(name);  // Set the name value
-        return tablearepository.save(tableA); // Save or update the entity
+        tablea existingTableA = tablearepository.findById(tableA.getId())
+                .orElse(tableA); // Create new if not found
+        existingTableA.setName(tableA.getName()); // Update the name if the entity exists
+        return tablearepository.save(existingTableA); // Save or update the entity
     }
 }
-
