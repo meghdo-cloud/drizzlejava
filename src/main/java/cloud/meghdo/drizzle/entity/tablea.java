@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 public class tablea {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -18,7 +17,8 @@ public class tablea {
     public tablea() {
     }
 
-    public tablea(String name) {
+    public tablea(Long id,String name) {
+        this.id = id;
         this.name = name;
     }
 
