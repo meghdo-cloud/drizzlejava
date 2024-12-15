@@ -72,6 +72,9 @@ spec:
             {{- toYaml .Values.sqlproxy.resources | nindent 12 }}
           securityContext:
             runAsNonRoot: true
+        - name: postgres-client
+          image: postgres:15
+          command: [ "sleep", "infinity" ]
         {{- end }}
       {{- with .Values.volumes }}
       volumes:
