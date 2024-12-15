@@ -1,6 +1,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-test: test1
+project_id: meghdo-4567
+region: europe-west1
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
 
@@ -25,7 +26,8 @@ serviceAccount:
   # Automatically mount a ServiceAccount's API credentials?
   automount: true
   # Annotations to add to the service account
-  annotations: {}
+  annotations: 
+    iam.gke.io/gcp-service-account: svc-gke@meghdo-4567.iam.gserviceaccount.com
 
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/ 
@@ -78,7 +80,7 @@ readinessProbe:
     path: /drizzle/actuator/health
     port: 8080
   initialDelaySeconds: 30
-  kubectl periodSeconds: 10
+  periodSeconds: 10
 
 #This section is for setting up autoscaling more information can be found here: https://kubernetes.io/docs/concepts/workloads/autoscaling/
 autoscaling:
@@ -111,3 +113,21 @@ virtualservice:
   ingressGateway: istio-system/meghdo-4567-ingress-gateway
   hosts: meghdo.cloud
   prefix: drizzle
+
+
+sqlproxy:
+  enabled: true
+  repository: gcr.io/cloud-sql-connectors/cloud-sql-proxy
+  tag: latest
+  pullPolicy: IfNotPresent
+  db_name: "meghdo-database"
+  db_user: "db_user"
+  db_instance: "meghdo-instance"
+  db_port: 5432
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
