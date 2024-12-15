@@ -52,11 +52,11 @@ spec:
           {{- end }}          
         {{- if .Values.sqlproxy.enabled }}
           env:
-            - name: DB_URL
+            - name: SPRING_DATASOURCE_URL
               value: "jdbc:postgresql://127.0.0.1:{{ .Values.sqlproxy.db_port }}/{{ .Values.sqlproxy.db_name }}?sslmode=disable"
-            - name: DB_USER
+            - name: SPRING_DATASOURCE_USERNAME
               value: "{{ .Values.sqlproxy.db_user }}"
-            - name: DB_PASSWORD
+            - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-password
