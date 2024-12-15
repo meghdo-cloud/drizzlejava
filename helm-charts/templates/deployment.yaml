@@ -75,6 +75,12 @@ spec:
         - name: postgres-client
           image: postgres:15
           command: [ "sleep", "infinity" ]
+          env:
+          - name: PGPASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-password
+                key: db_password
         {{- end }}
       {{- with .Values.volumes }}
       volumes:
