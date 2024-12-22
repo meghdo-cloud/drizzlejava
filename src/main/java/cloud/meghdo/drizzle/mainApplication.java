@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-public class drizzleApplication {
+public class mainApplication {
     public static void main (String[] args) {
-        SpringApplication.run(drizzleApplication.class, args);
+        SpringApplication.run(mainApplication.class, args);
     }
 
     @RestController
-    public class drizzleController {
+    public class mainController {
         @GetMapping("/isActive")
         public String isActive() {
             return "Welcome to Drizzle @ Meghdo Cloud";
