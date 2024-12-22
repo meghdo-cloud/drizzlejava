@@ -1,7 +1,7 @@
-package cloud.meghdo.drizzle.service;
+package cloud.meghdo.drizzlejava.service;
 
-import cloud.meghdo.drizzle.entity.tablea;
-import cloud.meghdo.drizzle.repository.tablearepository;
+import cloud.meghdo.drizzlejava.entity.tablea;
+import cloud.meghdo.drizzlejava.repository.tablearepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

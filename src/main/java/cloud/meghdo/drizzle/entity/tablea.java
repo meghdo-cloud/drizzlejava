@@ -1,4 +1,4 @@
-package cloud.meghdo.drizzle.entity;
+package cloud.meghdo.drizzlejava.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

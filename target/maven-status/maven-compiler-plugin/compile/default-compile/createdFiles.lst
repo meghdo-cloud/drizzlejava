@@ -1,6 +1,6 @@
-cloud\meghdo\drizzle\controller\tableacontroller.class
-cloud\meghdo\drizzle\repository\tablearepository.class
-cloud\meghdo\drizzle\service\tableaservice.class
-cloud\meghdo\drizzle\mainApplication$mainController.class
-cloud\meghdo\drizzle\mainApplication.class
-cloud\meghdo\drizzle\entity\tablea.class
+cloud\meghdo\drizzlejava\controller\tableacontroller.class
+cloud\meghdo\drizzlejava\repository\tablearepository.class
+cloud\meghdo\drizzlejava\service\tableaservice.class
+cloud\meghdo\drizzlejava\mainApplication$mainController.class
+cloud\meghdo\drizzlejava\mainApplication.class
+cloud\meghdo\drizzlejava\entity\tablea.class

@@ -1,7 +1,7 @@
-package cloud.meghdo.drizzle.controller;
+package cloud.meghdo.drizzlejava.controller;
 
-import cloud.meghdo.drizzle.entity.tablea;
-import cloud.meghdo.drizzle.service.tableaservice;
+import cloud.meghdo.drizzlejava.entity.tablea;
+import cloud.meghdo.drizzlejava.service.tableaservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

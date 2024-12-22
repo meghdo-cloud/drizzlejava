@@ -1,4 +1,4 @@
-package cloud.meghdo.drizzle;
+package cloud.meghdo.drizzlejava;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,6 @@
-package cloud.meghdo.drizzle.repository;
+package cloud.meghdo.drizzlejava.repository;
 
-import cloud.meghdo.drizzle.entity.tablea;
+import cloud.meghdo.drizzlejava.entity.tablea;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
