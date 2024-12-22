@@ -18,6 +18,8 @@ spec:
       emptyDir: {}
     - name: trivy-cache
       emptyDir: {}
+    - name: m2
+      emptyDir: {}
   containers:
     - name: jnlp
       image: jenkins/inbound-agent:latest
@@ -51,9 +53,14 @@ spec:
       command:
         - cat
       tty: true
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
       volumeMounts:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
+        - name: m2
+          mountPath: /home/root/.m2
     - name: infra-tools
       image: meghdo/infra-tools:v1.0
       command: ["sleep"]
