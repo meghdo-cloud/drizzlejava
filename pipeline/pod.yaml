@@ -60,7 +60,7 @@ spec:
         - name: workspace-volume
           mountPath: /home/jenkins/agent
         - name: m2
-          mountPath: /home/root/.m2
+          mountPath: /root/.m2
     - name: infra-tools
       image: meghdo/infra-tools:v1.0
       command: ["sleep"]
